@@ -1,26 +1,15 @@
 const express = require("express");
 const app = express();
 const db = require('./models/index');
-const { User } = require('./models/');
+const userController = require('./controllers/userController');
+
+app.use(express.json());
 
 app.get("/select", (req, res) => {
   res.send("select")
 });
 
-app.get("/create", (req, res) => {
-  User.create({
-    name: "Salami",
-    email: "meatstick@gmail.com",
-    password: "12345",
-    address: "100 real street",
-    phone_number: "555-5555"
-  }).catch((err) => {
-    if (err) {
-      console.log(err)
-    }
-  });
-  res.send("you created");
-});
+app.post("/create", userController.createUser);
 
 app.get("/delete", (req, res) => {
   res.send("delete")
