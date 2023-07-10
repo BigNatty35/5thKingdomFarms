@@ -31,14 +31,10 @@ const getUserById = async (req, res) => {
     const user = await User.findByPk(userId);
 
     if (!user) {
-      // User with the specified ID not found
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // User found, send the user object in the response
     res.json(user);
   } catch (error) {
-    // Handle any errors that occurred during the query
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -61,22 +57,39 @@ const updateUserById = async (req, res) => {
     );
 
     if (rowsUpdated === 0) {
-      // User with the specified ID not found
       return res.status(404).json({ error: 'User not found' });
     }
-
-    // User updated successfully
     res.json({ message: 'User updated successfully' });
   } catch (error) {
-    // Handle any errors that occurred during the update
     console.error("error:", error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
 
+const deleteUserById = async (req, res) => {
+  const userId = req.params.user_id;
+
+  try {
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    await user.destroy();
+
+    return res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 
 module.exports = {
   getUserById, 
   createUser,
-  updateUserById
+  updateUserById,
+  deleteUserById
 }
