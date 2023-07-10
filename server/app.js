@@ -1,19 +1,16 @@
 const express = require("express");
 const app = express();
 const db = require('./models/index');
-const userController = require('./controllers/userController');
+const { createUser, getUserById, updateUserById } = require('./controllers/userController');
 
 app.use(express.json());
 
-app.get("/select", (req, res) => {
-  res.send("select")
-});
+//User routes
+app.get("/users/:userId", getUserById);
 
-app.post("/create", userController.createUser);
+app.post("/users/create", createUser);
 
-app.get("/delete", (req, res) => {
-  res.send("delete")
-});
+app.post("/users/:userId", updateUserById);
 
 const PORT = 5050;
 
