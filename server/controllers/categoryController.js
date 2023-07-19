@@ -20,7 +20,6 @@ const createCategory = async (req, res) => {
       throw new Error('Missing Field');
     }
 
-    console.log("THIS IS NAME:", name)
     Category.create({ name });
     res.status(201).json({message: 'Category successfully created', name})
   } catch (error) {
