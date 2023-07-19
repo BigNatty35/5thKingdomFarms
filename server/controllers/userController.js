@@ -42,7 +42,6 @@ const getUserById = async (req, res) => {
 const updateUserById = async (req, res) => {
   const { userId } = req.params;
   const { name, email, address, phone_number } = req.body;
-  console.log(`THIS IS THE ID: ${userId}`);
   try {
     const [rowsUpdated] = await User.update(
       {

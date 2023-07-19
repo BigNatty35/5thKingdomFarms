@@ -23,6 +23,12 @@ const {
   deleteCategoryById
 } = require('./controllers/categoryController');
 
+const {
+  createOrder,
+  getOrderById,
+  getAllUserOrdersById,
+} = require('./controllers/orderController');
+
 
 app.use(express.json());
 
@@ -58,6 +64,14 @@ app.post('/category/create', createCategory);
 app.post('/category/:categoryId', updateCategoryById);
 
 app.delete('/category/:categoryId', deleteCategoryById);
+
+// Order Routes
+app.post('/order', createOrder);
+
+app.get('/order/user/:userId', getAllUserOrdersById);
+app.get('/order/:orderId', getOrderById);
+
+
 
 const PORT = 5050;
 

@@ -28,6 +28,20 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
+  
+  Order.associate = (models) => {
+    Order.hasMany(models.OrderItem, {
+      foreignKey: 'order_id',
+      as: 'orderItems',
+    });
 
+   
+    Order.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user',
+    });
+  };
+
+  
   return Order;
 };
